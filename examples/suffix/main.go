@@ -13,7 +13,7 @@ func main() {
 			return " <-- pinging"
 		},
 	}
-	cmd := exec.Command("ping", "google.com")
+	cmd := exec.Command("ping", "-c", "3", "google.com")
 	cmd.Stdout = suffixer
 	cmd.Run()
 }
