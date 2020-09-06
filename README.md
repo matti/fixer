@@ -1,31 +1,10 @@
 # fixer
 
-async io.Writer that prefixes, suffixes and infixes and is thread safe
+async io.Writer that prefixes, suffixes and infixes with functions and is thread safe
 
 ## prefixing
 
-```
-package main
-
-import (
-	"os"
-	"os/exec"
-
-	"github.com/matti/fixer"
-)
-
-func main() {
-	prefixer := fixer.Fixer{
-		Writer: os.Stdout,
-		PrefixFunc: func(s string) string {
-			return "pinging --> "
-		},
-	}
-	cmd := exec.Command("ping", "-c", "3", "google.com")
-	cmd.Stdout = prefixer
-	cmd.Run()
-}
-```
+[examples/prefix/main.go](examples/prefix/main.go)
 
 ```
 $ go run examples/prefix/main.go
@@ -37,28 +16,7 @@ pinging --> 64 bytes from 172.217.21.142: icmp_seq=2 ttl=116 time=25.450 ms
 
 ## suffixing
 
-```
-package main
-
-import (
-	"os"
-	"os/exec"
-
-	"github.com/matti/fixer"
-)
-
-func main() {
-	suffixer := fixer.Fixer{
-		Writer: os.Stdout,
-		SuffixFunc: func(s string) string {
-			return " <-- pinging"
-		},
-	}
-	cmd := exec.Command("ping", "-c", "3", "google.com")
-	cmd.Stdout = suffixer
-	cmd.Run()
-}
-```
+[examples/suffix/main.go](examples/suffix/main.go)
 
 ```
 $ go run examples/suffix/main.go
@@ -68,45 +26,9 @@ PING google.com (216.58.211.14): 56 data bytes <-- pinging
 64 bytes from 216.58.211.14: icmp_seq=2 ttl=116 time=26.280 ms <-- pinging
 ```
 
-## allfixing
+## prefixing, suffixing and infixing
 
-```
-package main
-
-import (
-	"os"
-	"os/exec"
-	"strings"
-
-	"github.com/matti/fixer"
-)
-
-func main() {
-	prefixer := fixer.Fixer{
-		Writer: os.Stdout,
-		PrefixFunc: func(s string) string {
-			return "pinging   "
-		},
-		InfixFunc: func(s string) string {
-			if len(s) > 25 {
-				return "< " + s[:25] + " ... >"
-			}
-
-			return "< " + s + " >"
-		},
-		SuffixFunc: func(s string) string {
-			padding := ""
-			if amount := 36 - len(s); amount > 0 {
-				padding = strings.Repeat(" ", amount)
-			}
-			return padding + "ponging"
-		},
-	}
-	cmd := exec.Command("ping", "-c", "3", "google.com")
-	cmd.Stdout = prefixer
-	cmd.Run()
-}
-```
+[examples/allfix/main.go](examples/allfix/main.go)
 
 ```
 $ go run examples/allfix/main.go
