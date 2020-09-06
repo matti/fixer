@@ -1,6 +1,6 @@
 # fixer
 
-io.Writer that prefixes, suffixes and infixes
+async io.Writer that prefixes, suffixes and infixes and is thread safe
 
 ## prefixing
 
