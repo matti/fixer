@@ -1,6 +1,11 @@
 FROM golang:1.15.0-alpine3.12
 
-WORKDIR /build
-COPY . .
+RUN apk add --no-cache \
+  git
 
-RUN go run cmd/uses.go
+WORKDIR /build
+
+COPY go.mod ./
+RUN go mod download
+
+COPY . .
