@@ -15,11 +15,15 @@ func main() {
 			return "pinging   "
 		},
 		InfixFunc: func(s string) string {
+			if len(s) > 25 {
+				return "< " + s[:25] + " ... >"
+			}
+
 			return "< " + s + " >"
 		},
 		SuffixFunc: func(s string) string {
 			padding := ""
-			if amount := 80 - len(s); amount > 0 {
+			if amount := 36 - len(s); amount > 0 {
 				padding = strings.Repeat(" ", amount)
 			}
 			return padding + "ponging"

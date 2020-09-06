@@ -88,11 +88,15 @@ func main() {
 			return "pinging   "
 		},
 		InfixFunc: func(s string) string {
+			if len(s) > 25 {
+				return "< " + s[:25] + " ... >"
+			}
+
 			return "< " + s + " >"
 		},
 		SuffixFunc: func(s string) string {
 			padding := ""
-			if amount := 80 - len(s); amount > 0 {
+			if amount := 36 - len(s); amount > 0 {
 				padding = strings.Repeat(" ", amount)
 			}
 			return padding + "ponging"
@@ -106,8 +110,12 @@ func main() {
 
 ```
 $ go run examples/allfix/main.go
-pinging   < PING google.com (172.217.21.174): 56 data bytes >                             ponging
-pinging   < 64 bytes from 172.217.21.174: icmp_seq=0 ttl=116 time=43.580 ms >             ponging
-pinging   < 64 bytes from 172.217.21.174: icmp_seq=1 ttl=116 time=29.642 ms >             ponging
-pinging   < 64 bytes from 172.217.21.174: icmp_seq=2 ttl=116 time=27.189 ms >             ponging
+pinging   < PING google.com (172.217. ... >   ponging
+pinging   < 64 bytes from 172.217.21. ... >   ponging
+pinging   < 64 bytes from 172.217.21. ... >   ponging
+pinging   < 64 bytes from 172.217.21. ... >   ponging
+pinging   <  >                                ponging
+pinging   < --- google.com ping stati ... >   ponging
+pinging   < 3 packets transmitted, 3  ... >   ponging
+pinging   < round-trip min/avg/max/st ... >   ponging
 ```
