@@ -8,9 +8,10 @@ async io.Writer that prefixes, suffixes and infixes and is thread safe
 package main
 
 import (
-	"fixer"
 	"os"
 	"os/exec"
+
+	"github.com/matti/fixer"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 			return "pinging --> "
 		},
 	}
-	cmd := exec.Command("ping", "google.com")
+	cmd := exec.Command("ping", "-c", "3", "google.com")
 	cmd.Stdout = prefixer
 	cmd.Run()
 }
@@ -40,9 +41,10 @@ pinging --> 64 bytes from 172.217.21.142: icmp_seq=2 ttl=116 time=25.450 ms
 package main
 
 import (
-	"fixer"
 	"os"
 	"os/exec"
+
+	"github.com/matti/fixer"
 )
 
 func main() {
@@ -52,7 +54,7 @@ func main() {
 			return " <-- pinging"
 		},
 	}
-	cmd := exec.Command("ping", "google.com")
+	cmd := exec.Command("ping", "-c", "3", "google.com")
 	cmd.Stdout = suffixer
 	cmd.Run()
 }
@@ -72,10 +74,11 @@ PING google.com (216.58.211.14): 56 data bytes <-- pinging
 package main
 
 import (
-	"fixer"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/matti/fixer"
 )
 
 func main() {
@@ -95,7 +98,7 @@ func main() {
 			return padding + "ponging"
 		},
 	}
-	cmd := exec.Command("ping", "google.com")
+	cmd := exec.Command("ping", "-c", "3", "google.com")
 	cmd.Stdout = prefixer
 	cmd.Run()
 }

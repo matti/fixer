@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fixer"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/matti/fixer"
 )
 
 func main() {
