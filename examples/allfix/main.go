@@ -24,7 +24,7 @@ func main() {
 			return padding + "ponging"
 		},
 	}
-	cmd := exec.Command("ping", "google.com")
+	cmd := exec.Command("ping", "-c", "3", "google.com")
 	cmd.Stdout = prefixer
 	cmd.Run()
 }
