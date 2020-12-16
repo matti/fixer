@@ -26,7 +26,7 @@ PING google.com (216.58.211.14): 56 data bytes <-- pinging
 64 bytes from 216.58.211.14: icmp_seq=2 ttl=116 time=26.280 ms <-- pinging
 ```
 
-## prefixing, suffixing and infixing
+## prefixing, infixing and suffixing
 
 [examples/allfix/main.go](examples/allfix/main.go)
 
